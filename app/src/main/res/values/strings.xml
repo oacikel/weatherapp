@@ -1,0 +1,15 @@
+<resources>
+    <string name="version_name">v-0.0.1</string>
+    <string name="dev_version_name">dev-0.0.1</string>
+    <string name="pre_version_name">pre-0.0.1</string>
+    <string name="common_unknown_error">Bilinmeyen bir hata oluştu.</string>
+    <string name="loading_popup_default_message">İşleminiz yapılıyor.</string>
+    <string name="success_popup_default_message">İşlem Başarılı!</string>
+    <string name="app_google_map_api">GOOGLE_MAP_API</string>
+    <string name="preference_file_key">com.oacikel.baseapp_preferences</string>
+    <string name="loading_popup_default_header">Lütfen Bekleyiniz</string>
+    <string name="error_popup_default_header">Dikkat!</string>
+    <string name="common_ok">Tamam</string>
+    <string name="success_popup_default_header">Başarılı!</string>
+    <string name="permission_location">Konum Paylaşımınıza İzin Vermeniz Gerekiyor</string>
+</resources>

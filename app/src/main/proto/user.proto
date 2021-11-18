@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.oacikel.baseapp";
+option java_multiple_files = true;
+
+message User {
+  string id = 1;
+  string username = 2;
+  string password = 3;
+  string market = 4;
+  string access_token = 5;
+  string refresh_token = 6;
+  string remote_access_token = 7;
+  string remote_refresh_token = 8;
+}

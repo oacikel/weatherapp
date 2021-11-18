@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.oacikel.baseapp";
+option java_multiple_files = true;
+
+message AppSettings {
+  string language = 1;
+  bool rememberMe = 2;
+  bool fingerPrintEnabled = 3;
+  bool fingerPrintRemind = 4;
+  bool remoteOnBoardingShowed = 5;
+  bool parkTooltipShowed = 6;
+  bool vehicleParkVehiclesToolTipShowed =7;
+  bool vehicleParkServicesToolTipShowed =8;
+  bool homeOnBoardingShowed =9;
+  bool overloadWarnShowed =10;
+}

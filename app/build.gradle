@@ -1,0 +1,255 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "com.google.protobuf"
+apply plugin: 'kotlin-allopen'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "com.oacikel.baseapp"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+/*
+    signingConfigs {
+        release {
+            storePassword "dud"
+            keyAlias "dud"
+            keyPassword "dud"
+            storeFile file('signing/keystore.jks')
+        }
+
+        debug {
+            storePassword "dud"
+            keyAlias "dud"
+            keyPassword "dud"
+            storeFile file('signing/keystore.jks')
+        }
+
+        pre_release {
+            storePassword "dud"
+            keyAlias "dud"
+            keyPassword "dud"
+            storeFile file('signing/keystore.jks')
+        }
+    }
+ */
+   buildTypes {
+
+        debug {
+            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
+            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
+            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
+            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
+            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
+            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+
+            debuggable true
+            ext.enableCrashlytics = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "BaseApp-Debug"
+            manifestPlaceholders = [versionName: "@string/dev_version_name"]
+            applicationIdSuffix ".dev"
+        }
+        release {
+            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
+            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
+            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
+            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
+            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
+            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            ext.enableCrashlytics = true
+            //signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "BaseApp"
+            manifestPlaceholders = [versionName: "@string/version_name"]
+        }
+
+        pre_release {
+            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
+            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
+            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
+            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
+            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
+            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+            debuggable true
+            minifyEnabled true
+            shrinkResources true
+            //signingConfig signingConfigs.pre_release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "BaseApp-PreRelease"
+            manifestPlaceholders = [versionName: "@string/pre_version_name"]
+            applicationIdSuffix ".pre"
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        disable 'MissingTranslation'
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.15.8"
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
+    }
+}
+
+kapt{
+    correctErrorTypes = true
+    generateStubs = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation platform('com.google.firebase:firebase-bom:28.4.1')
+
+    implementation deps.app_compat
+    implementation deps.recyclerview
+    implementation deps.cardview
+    implementation deps.material
+    implementation deps.core_ktx
+    implementation deps.transition
+    implementation deps.fragment.testing
+    implementation deps.navigation.fragment_ktx
+    implementation deps.room.runtime
+    implementation deps.lifecycle.livedata_ktx
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.java8
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.glide.runtime
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    implementation deps.constraint_layout
+    implementation deps.kotlin.stdlib
+
+    implementation deps.timber
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+    kapt deps.room.compiler
+    kapt deps.lifecycle.compiler
+
+    testImplementation deps.junit
+    testImplementation deps.mock_web_server
+    testImplementation deps.arch_core.testing
+    testImplementation deps.mockito.core
+
+    androidTestImplementation deps.atsl.core
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.atsl.runner
+    androidTestImplementation deps.atsl.rules
+
+    androidTestImplementation deps.app_compat
+    androidTestImplementation deps.recyclerview
+    androidTestImplementation deps.cardview
+    androidTestImplementation deps.material
+
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+
+    androidTestImplementation deps.arch_core.testing
+    androidTestImplementation deps.mockito.core
+    androidTestImplementation deps.mockito.android
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.8.1"
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.2.2")
+
+    // chuck
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+    def epoxy_version = '4.6.2'
+
+    implementation "com.airbnb.android:epoxy-paging:$epoxy_version"
+    implementation "com.airbnb.android:epoxy:$epoxy_version"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxy_version"
+    kapt "com.airbnb.android:epoxy-processor:$epoxy_version"
+
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
+    implementation 'com.github.curioustechizen.android-ago:library:1.4.0'
+    implementation 'com.github.jd-alexander:likebutton:0.2.3'
+    implementation 'com.otaliastudios:cameraview:2.7.0'
+    implementation 'com.github.qingmei2:rximagepicker:2.5.4'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation "androidx.datastore:datastore-core:1.0.0"
+    implementation 'com.google.crypto.tink:tink-android:1.5.0'
+    implementation  "com.google.protobuf:protobuf-javalite:3.15.8"
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.56'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01"
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
+    implementation 'com.google.maps.android:maps-utils-ktx:2.4.0'
+    //loading
+    implementation 'com.github.smrtyvz:ArchedImageProgressBar:2.01'
+    implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
+    //ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation "androidx.paging:paging-runtime-ktx:3.0.0"
+
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.akexorcist:round-corner-progress-bar:2.1.1'
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC1'
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    implementation 'com.savvi.datepicker:rangepicker:1.3.0'
+    implementation("net.orandja.shadowlayout:shadowlayout:1.0.1")
+
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.airbnb.android:lottie:3.5.0'
+    implementation 'com.google.android.play:core:1.10.2'
+    implementation 'id.zelory:compressor:3.0.1'
+}
