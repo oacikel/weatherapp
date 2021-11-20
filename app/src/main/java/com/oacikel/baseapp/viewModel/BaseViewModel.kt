@@ -17,6 +17,7 @@ import com.oacikel.baseapp.R
 import com.oacikel.baseapp.api.Status
 import com.oacikel.baseapp.core.BaseActivity
 import com.oacikel.baseapp.db.AppDb
+import com.oacikel.baseapp.db.entity.WeatherEntity
 import com.oacikel.baseapp.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -113,11 +114,6 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
         }
     }
 
-    fun clearUserDB() {
-        viewModelScope.launch(Dispatchers.IO) {
-            //appDatabase.userDao().deleteAll()
-        }
-    }
 
     fun getLocation(): LiveData<Location> {
         if (ActivityCompat.checkSelfPermission(

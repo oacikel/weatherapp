@@ -1,20 +1,20 @@
 package com.oacikel.baseapp.api
 
-import androidx.lifecycle.LiveData
 import com.oacikel.baseapp.api.endpoints.RemoteConstants
 import com.oacikel.baseapp.api.request.RequestAccessToken
 import com.oacikel.baseapp.api.request.RequestLoginModel
 import com.oacikel.baseapp.api.response.ResponseLoginModel
-import com.oacikel.baseapp.db.entity.UserEntity
+import com.oacikel.baseapp.db.entity.WeatherEntity
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface BaseService {
-    @GET("social/{userId}/MyProfileDummy")
-    fun getMySocialProfile(@Path("userId") userId: String?): LiveData<ApiResponse<UserEntity>>
+    @GET(RemoteConstants.WEATHER_DATA)
+    fun getWeatherForCity(@Query("q") cityName: String?,@Query("units") units: String?): Call<WeatherEntity>
+
+    @GET(RemoteConstants.WEATHER_DATA)
+    fun getWeatherForLocation(@Query("lat") latitude: String?,@Query("lon") longitude: String?,@Query("units") units: String?): Call<WeatherEntity>
+
 
     @POST(RemoteConstants.SET_ACCESS_TOKEN)
     fun setAccessToken(@Body requestAccessToken: RequestAccessToken): Call<ApiResponse<ResponseLoginModel>>

@@ -82,17 +82,6 @@ class NetworkModule {
         return baseService
     }
 
-    @Singleton
-    @Provides
-    fun provideMarvelService(
-        @Named("MARVEL_SERVICE_RETROFIT") retrofit: Retrofit,
-        apiServiceHolder: ApiServiceHolder
-    ): MarvelService {
-        val marvelService = retrofit.create(MarvelService::class.java)
-        apiServiceHolder.marvelService = marvelService
-        return marvelService
-    }
-
     @Provides
     @Singleton
     @Named("MockInterceptor")

@@ -40,9 +40,6 @@ class BaseAuth (var apiServiceHolder: ApiServiceHolder? = null,
             userAccessToken = userDataStore.data.first().refreshToken
             sUserRefreshToken = sUserDataStore.data.first().refreshToken
         }
-        if(response.request.url.encodedPath.contains("Account/Login")){
-            isEndingSession = false
-        }
 
         if (response.request.url.encodedPath.contains("/v1/remote/")) {
             //endRemoteSession()

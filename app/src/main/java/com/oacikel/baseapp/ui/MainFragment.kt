@@ -7,26 +7,25 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.oacikel.baseapp.MainActivity
 import com.oacikel.baseapp.R
-import com.oacikel.baseapp.binding.listAdapters.CharactersAdapter
-import com.oacikel.baseapp.binding.listAdapters.ComicsAdapter
+import com.oacikel.baseapp.api.Status
+import com.oacikel.baseapp.binding.listAdapters.WeatherAdapter
 import com.oacikel.baseapp.core.BaseInjectableFragment
 import com.oacikel.baseapp.databinding.FragmentMainBinding
-import com.oacikel.baseapp.db.entity.marvelEntities.CharacterEntity
-import com.oacikel.baseapp.db.entity.marvelEntities.ResourceListEntity
-import com.oacikel.baseapp.db.entity.marvelEntities.SummaryViewEntity
+import com.oacikel.baseapp.db.entity.WeatherEntity
 import com.oacikel.baseapp.di.Injectable
 import com.oacikel.baseapp.ui.callback.ListItemFocusCallback
 import com.oacikel.baseapp.viewModel.MainViewModel
 
 class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(),
-    Injectable,ListItemFocusCallback{
+    Injectable,ListItemFocusCallback {
 
     override val layoutResourceId: Int = R.layout.fragment_main
     override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
-    private val charactersAdapter by lazy { CharactersAdapter(this) }
-    private val comicsAdapter by lazy { ComicsAdapter() }
+    private lateinit var weatherEntity: WeatherEntity
+    private val weatherAdapter by lazy {WeatherAdapter(this)}
 
     companion object {
     }
@@ -53,33 +52,59 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
         binding.viewModel = viewModel
         binding.activity = (activity as MainActivity)
         binding.fragment = this@MainFragment
-        addAdapterToCharacterList()
-        getCharacters()
+        addAdapterToSavedWeatherList()
+        observeCurrentWeather()
+        fetchSavedWeatherList()
+        getWeatherForLocation()
+        binding.buttonLocation.setOnClickListener {
+            getWeatherForLocation()
+        }
+        binding.buttonSaveWeather.setOnClickListener {
+            saveWeatherData(weatherEntity)
+        }
     }
 
-    fun getCharacters(){
-        viewModel.charactersLiveData.observe(viewLifecycleOwner){
-            if(it.data!=null){
-                charactersAdapter.submitList(it.data!!.content as MutableList<CharacterEntity>)
+    fun  addAdapterToSavedWeatherList(){
+        binding.recyclerViewSavedWeathers.apply {
+            adapter = weatherAdapter
+        }
+    }
+
+    fun saveWeatherData(weatherEntity: WeatherEntity){
+        viewModel.saveWeather(weatherEntity)
+    }
+
+    fun getWeatherForLocation() {
+        viewModel.status.postValue(Status.LOADING)
+        viewModel.getWeatherForLocation()
+    }
+
+    fun fetchSavedWeatherList(){
+        viewModel.savedWeatherList.observe(viewLifecycleOwner){
+            weatherAdapter.submitList(it as MutableList<WeatherEntity>)
+        }
+
+        viewModel.getSavedWeather()
+    }
+
+    fun observeCurrentWeather(){
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
+            if(it!=null){
+                if(it.code!=200){
+                    viewModel.errorMessage.postValue(it.message)
+                    viewModel.status.postValue(Status.ERROR)
+                }else{
+                    viewModel.status.postValue(Status.INVISIBLE_SUCCESS)
+                    binding.weather=it
+                    weatherEntity=it
+                }
+            }else{
+                viewModel.status.postValue(Status.ERROR)
             }
         }
-        viewModel.getCharacters()
     }
 
-    // TODO: Bu metodlar extensio olarak konulsun 
-    fun  addAdapterToCharacterList(){
-        binding.viewPagerCharacters.apply {
-            adapter = charactersAdapter
-        }
-    }
-
-    fun  addAdapterToComicsList(comics: List<SummaryViewEntity>?){
-        binding.recyclerViewComics.apply {
-            adapter = comicsAdapter
-            comicsAdapter.submitList(comics as MutableList<SummaryViewEntity>)
-        }
-    }
-    override fun onComicListAvailable(comics: List<SummaryViewEntity>?) {
-        addAdapterToComicsList(comics)
+    override fun onWeatherItemClicked(weather: WeatherEntity) {
+        // TODO: handle erase events here
     }
 }

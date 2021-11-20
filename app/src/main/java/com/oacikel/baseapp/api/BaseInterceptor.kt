@@ -35,9 +35,7 @@ class BaseInterceptor(
         var userAccessToken: String
         var sUserAccessToken: String
         var remoteAccessToken: String
-        val apiKey: String = BuildConfig.MARVEL_API_PUBLIC_KEY
-        val secretApiKey:String =BuildConfig.MARVEL_API_PRIVATE_KEY
-        var ts:String=""
+        val apiKey: String = BuildConfig.OPEN_WEATHER_API
         runBlocking {
             langCode = appSettingsDataStore.data.first().language
             if (langCode.isEmpty())
@@ -51,19 +49,9 @@ class BaseInterceptor(
             remoteAccessToken = userDataStore.data.first().remoteAccessToken
             sUserAccessToken = sUserDataStore.data.first().accessToken
         }
-        fun md5(input:String): String {
-            val md = MessageDigest.getInstance("MD5")
-            return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
-        }
-        fun getTime():String{
-            ts=System.currentTimeMillis().toString()
-            return ts
-        }
 
         val httpUrl = request.url.newBuilder()
-            .addQueryParameter("apikey", apiKey)
-            .addQueryParameter("ts",getTime())
-            .addQueryParameter("hash",md5(ts+secretApiKey+apiKey))
+            .addQueryParameter("appid", apiKey)
             .build()
         request = request.newBuilder().url(httpUrl).build()
 

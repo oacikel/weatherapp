@@ -54,9 +54,8 @@ android {
             buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
             buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
             buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
-            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
-            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
-            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+            buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
+            buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
 
             debuggable true
             ext.enableCrashlytics = false
@@ -69,9 +68,9 @@ android {
             buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
             buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
             buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
-            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
-            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
-            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+            buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
+            buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
+
             debuggable false
             minifyEnabled true
             shrinkResources true
@@ -86,9 +85,9 @@ android {
             buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
             buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
             buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
-            buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', MARVEL_API_PUBLIC_KEY
-            buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', MARVEL_API_PRIVATE_KEY
-            buildConfigField 'String', 'BASE_URL', MARVEL_BASE_URL
+            buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
+            buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
+
             debuggable true
             minifyEnabled true
             shrinkResources true

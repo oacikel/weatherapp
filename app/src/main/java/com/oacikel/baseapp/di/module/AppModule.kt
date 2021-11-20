@@ -15,7 +15,7 @@ import com.oacikel.baseapp.BaseApplication
 import com.oacikel.baseapp.StaticUser
 import com.oacikel.baseapp.User
 import com.oacikel.baseapp.db.AppDb
-import com.oacikel.baseapp.db.dao.UserDao
+import com.oacikel.baseapp.db.dao.WeatherDao
 import com.oacikel.baseapp.db.dataStore.AppSettingsSerializer
 import com.oacikel.baseapp.db.dataStore.StaticUserSerializer
 import com.oacikel.baseapp.db.dataStore.UserSerializer
@@ -89,12 +89,6 @@ internal class AppModule {
             .fallbackToDestructiveMigration().build()
     }
 
-    @Singleton
-    @Provides
-    fun provideUserDao(db: AppDb): UserDao {
-        return db.userDao()
-    }
-
 
     @Singleton
     @Provides
@@ -106,6 +100,12 @@ internal class AppModule {
     @Provides
     fun provideApplication(): BaseApplication {
         return BaseApplication()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWeatherDao(db: AppDb): WeatherDao {
+        return db.weatherDao()
     }
 
 }

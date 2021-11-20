@@ -4,6 +4,8 @@ import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import androidx.lifecycle.MutableLiveData
+import java.util.*
+
 
 fun Context.connect(): Boolean {
     val connMgr = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -31,5 +33,14 @@ fun Any.tryCatch(
         finalBlock?.invoke()
     }
 }
+
+fun String.getCountryName():String{
+    return Locale("", this).getDisplayCountry()
+}
+
+fun getCurrentDate():String{
+    return Constants.longDateFormat.format(Date())
+}
+
 
 fun <T : Any?> MutableLiveData<T>.default(initialValue: T) = apply { setValue(initialValue) }

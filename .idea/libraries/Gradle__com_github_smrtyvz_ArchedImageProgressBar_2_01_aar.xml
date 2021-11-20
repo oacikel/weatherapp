@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.smrtyvz:ArchedImageProgressBar:2.01@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0ec2b46043d33ab7da3b955b11d5075a/transformed/jetified-ArchedImageProgressBar-2.01/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0ec2b46043d33ab7da3b955b11d5075a/transformed/jetified-ArchedImageProgressBar-2.01/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0ec2b46043d33ab7da3b955b11d5075a/transformed/jetified-ArchedImageProgressBar-2.01/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fed29dd157f65bf71f9b451b557c9a3d/transformed/jetified-ArchedImageProgressBar-2.01/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fed29dd157f65bf71f9b451b557c9a3d/transformed/jetified-ArchedImageProgressBar-2.01/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fed29dd157f65bf71f9b451b557c9a3d/transformed/jetified-ArchedImageProgressBar-2.01/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

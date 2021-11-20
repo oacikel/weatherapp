@@ -4,19 +4,62 @@ class RoomConstants {
     companion object {
         const val USER = "user"
         const val ID = "id"
-        //User Start
-        const val USER_TABLE="USER_TABLE"
-        const val USER_ID="id"
-        const val USER_GUID="guid"
-        const val USER_NAME="userName"
-        const val USER_FIRST_NAME="firstName"
-        const val USER_LAST_NAME="lastName"
-        const val USER_MAIL="mail"
-        const val USER_ROLE="userRole"
-        const val USER_ROLE_ID="userRoleId"
-        const val USER_MARKET_CODE="marketCode"
-        const val USER_IMAGE_URL="imageUrl"
-        //User End
+
+        //Base Response Start
+        const val RESPONSE_CODE="cod"
+        const val RESPONSE_DATA="data"
+        //Base Respond End
+
+        //Weather Start
+        const val WEATHER_TABLE="weather"
+        const val WEATHER_ID="id"
+        const val WEATHER_COORDINATE="coord"
+        const val WEATHER_INFO="weather"
+        const val WEATHER_CITY="name"
+        const val WEATHER_TEMP="main"
+        const val WEATHER_VISIBILITY="visibility"
+        const val WEATHER_WIND="wind"
+        const val WEATHER_CLOUDS="clouds"
+        const val WEATHER_MESSAGE="message"
+        const val WEATHER_THROWABLE="throwable"
+        const val WEATHER_DATE="date"
+        const val WEATHER_LOCATION="sys"
+        const val WEATHER_CODE="cod"
+        //Weather End
+
+        //Coordinate Start
+        const val COORDINATE_LAT="lat"
+        const val COORDINATE_LNG="lon"
+        //Coordinate End
+
+        //Summary Start
+        const val SUMMARY_ID="id"
+        const val SUMMARY_MAIN="main"
+        const val SUMMARY_DESC="description"
+        const val SUMMARY_ICON="icon"
+        //Summary End
+
+        //Detail Start
+        const val DETAIL_TEMP="temp"
+        const val DETAIL_FEELS_LIKE="feels_like"
+        const val DETAIL_TEMP_MIN="temp_min"
+        const val DETAIL_MAX="temp_max"
+        const val DETAIL_PRESSURE="pressure"
+        const val DETAIL_HUMIDITY="humidity"
+        //Detail End
+
+        //Wind Start
+        const val WIND_SPEED="speed"
+        const val WIND_DEGREE="deg"
+        //Wind End
+
+        //Cloud Start
+        const val CLOUD_ALL="all"
+        //Cloud End
+
+        //Location Start
+        const val LOCATION_COUNTRY="country"
+        //Location End
 
         //MARVEL REGION
         //Base Response Start
@@ -30,10 +73,6 @@ class RoomConstants {
         const val MARVEL_RESPONSE_RESULTS="results"
         //Base Response End
 
-        //URL Start
-        const val URL_TYPE ="type"
-        const val URL_URL ="url"
-        //Url End
 
         //Image Start
         const val IMAGE_PATH="path"
@@ -45,34 +84,5 @@ class RoomConstants {
         const val SUMMARY_URI="resourceURI"
         //Summary End
 
-        //Character Start
-        const val CHARACTER_TABLE="CHARACTER_TABLE"
-        const val CHARACTER_ID="id"
-        const val CHARACTER_NAME="name"
-        const val CHARACTER_DESCRIPTION="description"
-        const val CHARACTER_MODIFIED="modified"
-        const val CHARACTER_URI="resourceURI"
-        const val CHARACTER_RESOURCE_URIS="urls"
-        const val CHARACTER_THUMBNAIL="thumbnail"
-        const val CHARACTER_COMICS="comics"
-        const val CHARACTER_STORIES="stories"
-        const val CHARACTER_EVENTS="events"
-        const val CHARACTER_SERIES="series"
-        //Character End
-
-        //Comic Summary Start
-        const val RESOURCE_AVAILABLE="available"
-        const val RESOURCE_RETURNED="returned"
-        const val RESOURCE_COLLECTION_URI="collectionURI"
-        const val RESOURCE_ITEMS="items"
-        //Comic Summary End
-
-        //Comic Start
-        const val COMIC_TABLE="COMIC_TABLE"
-        const val COMIC_ID="id"
-        const val COMIC_TITLE="title"
-        const val COMIC_DESCRIPTION="description"
-        const val COMIC_THUMBNAIL="thumbnail"
-        //Comic End
     }
 }
