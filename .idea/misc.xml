@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_loading_empty_circle.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_location.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_pressure.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_selected_indicator.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_status.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_success_dialog.xml" value="0.143" />
@@ -25,7 +26,7 @@
         <entry key="app/src/main/res/layout/dialog_loading.xml" value="0.49574324013530346" />
         <entry key="app/src/main/res/layout/dialog_success.xml" value="0.6990291262135923" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.14855804443359372" />
-        <entry key="app/src/main/res/layout/fragment_saved_weather.xml" value="0.1956521739130435" />
+        <entry key="app/src/main/res/layout/fragment_saved_weather.xml" value="0.20559234619140632" />
         <entry key="app/src/main/res/layout/item_character.xml" value="0.36227544910179643" />
         <entry key="app/src/main/res/layout/item_comic.xml" value="0.19882246376811594" />
         <entry key="app/src/main/res/layout/item_weather.xml" value="0.41730124986642747" />

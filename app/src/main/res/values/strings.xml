@@ -20,8 +20,13 @@
     <string name="main_fragment_status">Status:</string>
     <string name="main_fragment_save_weather">Save Weather</string>
     <string name="main_fragment_humidity">Humidity:</string>
+    <string name="main_fragment_humidity_value">%s %%</string>
     <string name="main_fragment_pressure">Pressure:</string>
+    <string name="main_fragment_pressure_value">%s hPa</string>
     <string name="main_fragment_location">Location:</string>
     <string name="bottom_navigation_history">Saved Weather</string>
     <string name="bottom_navigation_current_weather">Current Weather</string>
+    <string name="fragment_saved_weathers_search_hint">Search Saved Data</string>
+    <string name="fragment_saved_weather_empty_list_description">Looks like you don\'t have any weather event saved...</string>
+    <string name="fragment_saved_weather_go_back">Go back</string>
 </resources>

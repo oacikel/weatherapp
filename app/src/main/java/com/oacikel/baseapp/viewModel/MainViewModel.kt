@@ -29,14 +29,6 @@ constructor(val weatherRepository: WeatherRepository, val weatherDao: WeatherDao
         weatherRepository.getWeatherForLocation(location, weatherLiveData)
     }
 
-    fun getSavedWeather(viewLifecycleOwner: LifecycleOwner) {
-        viewModelScope.launch(Dispatchers.Unconfined) {
-            weatherRepository.getLocalWeatherList().observe(viewLifecycleOwner) {
-                savedWeatherList.postValue(it)
-            }
-        }
-    }
-
     fun saveWeather(weatherEntity: WeatherEntity) {
         Log.d(LOG_TAG, "Id is" + weatherEntity.uniqueId)
         weatherRepository.addWeatherToLocal(weatherEntity)

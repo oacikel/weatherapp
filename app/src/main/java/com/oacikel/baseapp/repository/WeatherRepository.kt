@@ -35,10 +35,6 @@ class WeatherRepository @Inject constructor(
                 ) {
                     response.body()?.date = getCurrentDate()
                     weatherLiveData.postValue(response.body())
-                    GlobalScope.launch(Dispatchers.IO) {
-                        weatherDao.insertWeather(response.body()!!)
-                    }
-
                 }
 
                 override fun onFailure(call: Call<WeatherEntity>, t: Throwable) {
@@ -68,12 +64,6 @@ class WeatherRepository @Inject constructor(
                 ) {
                     response.body()?.date = getCurrentDate()
                     weatherLiveData.postValue(response.body())
-                    if (response.body() != null) {
-                        GlobalScope.launch(Dispatchers.IO) {
-                            weatherDao.insertWeather(response.body()!!)
-                        }
-                    }
-
                 }
 
                 override fun onFailure(call: Call<WeatherEntity>, t: Throwable) {
@@ -96,36 +86,12 @@ class WeatherRepository @Inject constructor(
         GlobalScope.launch(Dispatchers.IO) { weatherDao.insertWeather(weatherEntity) }
     }
 
-
-    /*
-    fun loadHomePage(
-        date: String?,
-        location: String?,
-        isConnect: Boolean
-    ): LiveData<Resource<HomeEntity>> {
-        return object : LoyaltyNetworkBoundResource<HomeEntity, ResponseResultModel<HomeEntity>>(
-            appExecutors,
-            isConnect
-        ) {
-            override fun saveCallResult(item: ResponseResultModel<HomeEntity>) {
-                //save result
-                homeDao.saveHomePage(item.result)
-            }
-
-            override fun shouldFetch(data: HomeEntity?): Boolean {
-                //fetch it
-                return isConnect&&(location!=null)
-            }
-
-            override fun loadFromDb(): LiveData<HomeEntity> {
-                //createUser(userPostsRequestModel.userId.toString())
-                return homeDao.homePage
-            }
-
-            override fun createCall() = loyaltyService.requestHomepage(date,location)
-        }.asLiveData()
+    fun removeWeatherFromLocal(weatherEntity: WeatherEntity) {
+        GlobalScope.launch(Dispatchers.IO) { weatherDao.deleteWeatherEntity(weatherEntity) }
     }
 
-     */
+    fun searchFor(string: String): LiveData<List<WeatherEntity>> {
+        return weatherDao.searchWeatherList(string)
+    }
 
 }

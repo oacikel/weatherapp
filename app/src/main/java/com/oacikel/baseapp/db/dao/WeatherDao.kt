@@ -10,7 +10,8 @@ interface WeatherDao {
     @get:Query("SELECT * FROM weather")
     val savedWeatherList: LiveData<List<WeatherEntity>>
 
-    // TODO: Search method can be implemented
+    @Query("SELECT * FROM weather WHERE  (name LIKE '%' || :searchedText || '%' OR sys LIKE '%' || :searchedText || '%')")
+    fun searchWeatherList(searchedText: String): LiveData<List<WeatherEntity>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

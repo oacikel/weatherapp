@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.oacikel.baseapp.R
 import com.oacikel.baseapp.databinding.ItemWeatherBinding
 import com.oacikel.baseapp.db.entity.WeatherEntity
+import com.oacikel.baseapp.db.enums.TemperatureUnits
 import com.oacikel.baseapp.ui.callback.ListItemFocusCallback
 
-class WeatherAdapter(var focusCallback: ListItemFocusCallback) :
+class WeatherAdapter(var temperatureUnit: TemperatureUnits,var focusCallback: ListItemFocusCallback) :
     RecyclerView.Adapter<WeatherAdapter.WeatherListViewHolder>() {
     var weatherList = mutableListOf<WeatherEntity>()
 
@@ -34,7 +35,10 @@ class WeatherAdapter(var focusCallback: ListItemFocusCallback) :
         position: Int
     ) {
         holder.itemWeatherBinding.weather = weatherList[position]
-
+        holder.itemWeatherBinding.imageViewDelete.setOnClickListener {
+            focusCallback.onDeleteWeather(weatherList[position])
+        }
+        holder.itemWeatherBinding.temperatureType=temperatureUnit
     }
 
     override fun getItemCount(): Int {
