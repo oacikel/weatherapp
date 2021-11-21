@@ -60,7 +60,7 @@ android {
             debuggable true
             ext.enableCrashlytics = false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", "BaseApp-Debug"
+            resValue "string", "app_name", "Weather Logger-Debug"
             manifestPlaceholders = [versionName: "@string/dev_version_name"]
             applicationIdSuffix ".dev"
         }
@@ -77,7 +77,7 @@ android {
             ext.enableCrashlytics = true
             //signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", "BaseApp"
+            resValue "string", "app_name", "Weather Logger"
             manifestPlaceholders = [versionName: "@string/version_name"]
         }
 
@@ -93,7 +93,7 @@ android {
             shrinkResources true
             //signingConfig signingConfigs.pre_release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            resValue "string", "app_name", "BaseApp-PreRelease"
+            resValue "string", "app_name", "Weather Logger-PreRelease"
             manifestPlaceholders = [versionName: "@string/pre_version_name"]
             applicationIdSuffix ".pre"
         }
