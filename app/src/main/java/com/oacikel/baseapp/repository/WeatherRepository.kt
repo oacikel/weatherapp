@@ -68,7 +68,7 @@ class WeatherRepository @Inject constructor(
                 ) {
                     response.body()?.date = getCurrentDate()
                     weatherLiveData.postValue(response.body())
-                    if(response.body()!=null){
+                    if (response.body() != null) {
                         GlobalScope.launch(Dispatchers.IO) {
                             weatherDao.insertWeather(response.body()!!)
                         }
@@ -93,7 +93,7 @@ class WeatherRepository @Inject constructor(
 
     fun addWeatherToLocal(weatherEntity: WeatherEntity) {
         Log.d("OCUL", "Dao size: " + weatherDao.savedWeatherList.value?.size)
-        weatherDao.insertWeather(weatherEntity)
+        GlobalScope.launch(Dispatchers.IO) { weatherDao.insertWeather(weatherEntity) }
     }
 
 

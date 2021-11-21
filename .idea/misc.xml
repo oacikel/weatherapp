@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/dialog_fragment_bg.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_calendar_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_default_indicator.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_error_dialog.xml" value="0.143" />
         <entry key="app/src/main/res/drawable/ic_humidity.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.202" />
@@ -27,7 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_saved_weather.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/item_character.xml" value="0.36227544910179643" />
         <entry key="app/src/main/res/layout/item_comic.xml" value="0.19882246376811594" />
-        <entry key="app/src/main/res/layout/item_weather.xml" value="0.39281241930002136" />
+        <entry key="app/src/main/res/layout/item_weather.xml" value="0.41730124986642747" />
         <entry key="app/src/main/res/menu/navigation_items.xml" value="0.19791666666666666" />
       </map>
     </option>

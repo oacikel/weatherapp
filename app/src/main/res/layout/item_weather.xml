@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="weather"
             type="com.oacikel.baseapp.db.entity.WeatherEntity" />
+
+        <variable
+            name="temperatureType"
+            type="com.oacikel.baseapp.db.enums.TemperatureUnits" />
+
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutWeatherCard"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -24,7 +31,6 @@
             android:layout_marginStart="@dimen/margin_8dp"
             android:layout_marginTop="@dimen/margin_8dp"
             android:layout_marginEnd="@dimen/margin_8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,33 +40,43 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_8dp">
 
-                <TextView
-                    android:id="@+id/TextViewTemperatureTitleTextViewTemperatureTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_fragment_temperature_title"
+                <ImageView
+                    android:id="@+id/imageViewWeather"
+                    android:layout_width="@dimen/margin_72dp"
+                    android:layout_height="@dimen/margin_72dp"
+                    app:imageCode="@{weather.weatherSummary.get(0).icon}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewTemperaturValue"
-                    android:layout_width="0dp"
+                    style="@style/mediumTextStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_8dp"
-                    android:text="@{weather.detail.temperature.toString()}"
-                    app:layout_constraintBottom_toBottomOf="@+id/TextViewTemperatureTitleTextViewTemperatureTitle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/TextViewTemperatureTitleTextViewTemperatureTitle"
-                    app:layout_constraintTop_toTopOf="@+id/TextViewTemperatureTitleTextViewTemperatureTitle" />
+                    app:layout_constraintEnd_toEndOf="@+id/imageViewWeather"
+                    app:layout_constraintStart_toStartOf="@+id/imageViewWeather"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewWeather"
+                    app:temperatureType="@{temperatureType}"
+                    app:weatherForTemperature="@{weather}" />
+
+                <ImageView
+                    android:id="@+id/imageViewCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView3"
+                    app:srcCompat="@drawable/ic_calendar_24" />
 
                 <TextView
                     android:id="@+id/textView3"
+                    style="@style/subTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_8dp"
                     android:text="@string/main_fragment_date_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TextViewTemperatureTitleTextViewTemperatureTitle" />
+                    app:layout_constraintStart_toEndOf="@+id/imageViewCalendar"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTemperaturValue" />
 
                 <TextView
                     android:id="@+id/textViewDate"
@@ -79,18 +95,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
+                    android:animateLayoutChanges="true"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewDate">
+                    app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                    <ImageView
+                        android:id="@+id/imageViewStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_status" />
 
                     <TextView
                         android:id="@+id/textViewStatusTitle"
+                        style="@style/subTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/main_fragment_status"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageViewStatus"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewStatus" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -102,18 +129,120 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textViewStatusTitle"
                         app:layout_constraintTop_toTopOf="@+id/textViewStatusTitle" />
+
+                    <ImageView
+                        android:id="@+id/imageViewHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewStatusTitle"
+                        app:srcCompat="@drawable/ic_humidity" />
+
+                    <TextView
+                        android:id="@+id/textViewHumidityTitle"
+                        style="@style/subTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_fragment_humidity"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageViewHumidity"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewHumidity"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewHumidity" />
+
+                    <TextView
+                        android:id="@+id/textViewHumidityValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:text="@{weather.detail.humidity.toString()}"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewHumidityTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewHumidityTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewHumidityTitle" />
+
+                    <ImageView
+                        android:id="@+id/imageViewPressure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewHumidityTitle"
+                        app:srcCompat="@drawable/ic_pressure" />
+
+                    <TextView
+                        android:id="@+id/textViewPressureTitle"
+                        style="@style/subTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_fragment_pressure"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageViewPressure"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewPressure"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewPressure" />
+
+                    <TextView
+                        android:id="@+id/textViewPressureValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        android:text="@{weather.detail.pressure.toString()}"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewPressureTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewPressureTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewPressureTitle" />
+
+                    <ImageView
+                        android:id="@+id/imageLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPressureTitle"
+                        app:srcCompat="@drawable/ic_location" />
+
+                    <TextView
+                        android:id="@+id/textViewLocationTitle"
+                        style="@style/subTitleTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_fragment_location"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageLocation"
+                        app:layout_constraintStart_toEndOf="@+id/imageLocation"
+                        app:layout_constraintTop_toTopOf="@+id/imageLocation" />
+
+                    <TextView
+                        android:id="@+id/textViewLocationValue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewLocationTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewLocationTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewLocationTitle"
+                        app:weatherLocation="@{weather}" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textViewDetails"
+                    style="@style/actionTextStyle"
                     detailViewGroup="@{constraintLayoutDetails}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/main_fragment_more_details"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayoutDetails" />
 
+                <ImageView
+                    android:id="@+id/imageViewDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_delete" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

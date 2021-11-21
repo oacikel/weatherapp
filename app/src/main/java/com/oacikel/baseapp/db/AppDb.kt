@@ -17,7 +17,7 @@ import com.oacikel.baseapp.db.entity.WeatherEntity
     entities = [
         WeatherEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(

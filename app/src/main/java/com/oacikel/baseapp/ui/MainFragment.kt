@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.oacikel.baseapp.MainActivity
 import com.oacikel.baseapp.R
 import com.oacikel.baseapp.api.Status
@@ -21,6 +23,7 @@ import com.oacikel.baseapp.di.Injectable
 import com.oacikel.baseapp.ui.callback.ListItemFocusCallback
 import com.oacikel.baseapp.viewModel.MainViewModel
 
+
 class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(),
     Injectable, ListItemFocusCallback {
 
@@ -28,7 +31,8 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
     override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
     private lateinit var weatherEntity: WeatherEntity
     private val weatherAdapter by lazy { WeatherAdapter(this) }
-    private val LOG_TAG="OCUL - MainFragment"
+    private val LOG_TAG = "OCUL - MainFragment"
+    private var isFirstWeatherRetrieved = false
 
     companion object {
     }
@@ -55,7 +59,7 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
         binding.viewModel = viewModel
         binding.activity = (activity as MainActivity)
         binding.fragment = this@MainFragment
-        binding.temperatureType=TemperatureUnits.CELSIUS
+        binding.temperatureType = TemperatureUnits.CELSIUS
         observeCurrentLocation()
         observeCurrentWeather()
         fetchSavedWeatherList()
@@ -65,30 +69,27 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
             saveWeatherData(weatherEntity)
         }
         binding.buttonLocation.setOnClickListener {
-            viewModel.requestLocationUpdates()
+            //viewModel.requestLocationUpdates()
             viewModel.location.value?.let { location -> getWeatherForLocation(location) }
         }
     }
 
-    fun observeCurrentLocation(){
-        var isRequested=false
-        viewModel.location.observe(viewLifecycleOwner){location->
-            if (location != null) {
-                Log.d(LOG_TAG,"Location changed: "+location.latitude.toString()+" x "+location.longitude.toString())
-                if(!isRequested){
-                    getWeatherForLocation(location)
-                    binding.buttonLocation.visibility=View.VISIBLE
-                    isRequested=true
-                }
+    fun observeCurrentLocation() {
+        viewModel.getLocation().observe(viewLifecycleOwner) {
+            if (!isFirstWeatherRetrieved) {
+                Log.d(LOG_TAG, "Hello")
+                getWeatherForLocation(it)
+                isFirstWeatherRetrieved = true
             }
         }
-        viewModel.requestLocationUpdates()
     }
 
     fun addAdapterToSavedWeatherList() {
         binding.recyclerViewSavedWeathers.apply {
             adapter = weatherAdapter
         }
+        val helper: SnapHelper = LinearSnapHelper()
+        helper.attachToRecyclerView(binding.recyclerViewSavedWeathers)
     }
 
     fun saveWeatherData(weatherEntity: WeatherEntity) {
@@ -102,10 +103,9 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
 
     fun fetchSavedWeatherList() {
         viewModel.savedWeatherList.observe(viewLifecycleOwner) {
-            weatherAdapter.submitList(it as MutableList<WeatherEntity>)
+            weatherAdapter.submitList(it.take(5) as MutableList<WeatherEntity>)
         }
-
-        viewModel.getSavedWeather()
+        viewModel.getSavedWeather(viewLifecycleOwner)
     }
 
     fun observeCurrentWeather() {
@@ -115,9 +115,11 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
                     viewModel.errorMessage.postValue(it.message)
                     viewModel.status.postValue(Status.ERROR)
                 } else {
+                    binding.buttonLocation.visibility = View.VISIBLE
                     viewModel.status.postValue(Status.INVISIBLE_SUCCESS)
                     binding.weather = it
                     weatherEntity = it
+                    Log.d(LOG_TAG,"Newly retrieved weather id is "+it.uniqueId)
                 }
             } else {
                 viewModel.status.postValue(Status.ERROR)

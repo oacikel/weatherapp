@@ -82,11 +82,9 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
                 if (locationResult != null) {
                     for (loc in locationResult.locations) {
                         // Update UI with location data
-                        Log.d(LOG_TAG, "Updating location")
                         location.postValue(loc)
                     }
                 } else {
-                    Log.e(LOG_TAG, "location is null")
                 }
             }
         }
@@ -123,7 +121,7 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
 
     @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
-        Log.d(LOG_TAG, "Requesting location update.")
+
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest!!,
             locationCallback!!,
@@ -147,7 +145,6 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            Log.d(LOG_TAG, "Permissions not granted")
             location.value = null
             return location
         }
@@ -159,10 +156,8 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { loc: Location? ->
                 if (loc != null) {
-                    Log.d(LOG_TAG, "Location updating: " + loc.latitude + " x " + loc.longitude)
                     location.postValue(loc)
                 } else {
-                    Log.d(LOG_TAG, "Location update requested")
                     fusedLocationProviderClient.requestLocationUpdates(
                         locationRequest!!,
                         locationCallback!!,

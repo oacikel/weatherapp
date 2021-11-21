@@ -11,7 +11,7 @@ import java.io.Serializable
 
 @Entity(tableName = RoomConstants.WEATHER_TABLE)
 data class WeatherEntity constructor(
-    @PrimaryKey (autoGenerate = true)@ColumnInfo(name = RoomConstants.WEATHER_ID) @SerializedName(RoomConstants.WEATHER_ID) var id: Int =0,
+    @PrimaryKey (autoGenerate = true)@ColumnInfo(name = RoomConstants.WEATHER_ID) @SerializedName(RoomConstants.WEATHER_ID) var uniqueId: Int =0,
     @TypeConverters(CoordinateConverter::class) @ColumnInfo(name = RoomConstants.WEATHER_COORDINATE) @SerializedName(RoomConstants.WEATHER_COORDINATE) var coordinate: CoordinateEntity? = null,
     @TypeConverters(SummaryListConverter::class) @ColumnInfo(name = RoomConstants.WEATHER_INFO) @SerializedName(RoomConstants.WEATHER_INFO) var weatherSummary: ArrayList<SummaryEntity> = arrayListOf(),
     @TypeConverters(DetailConverter::class) @ColumnInfo(name = RoomConstants.WEATHER_TEMP) @SerializedName(RoomConstants.WEATHER_TEMP) var detail: DetailEntity? = null,

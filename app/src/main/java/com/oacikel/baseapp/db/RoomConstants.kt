@@ -12,7 +12,7 @@ class RoomConstants {
 
         //Weather Start
         const val WEATHER_TABLE="weather"
-        const val WEATHER_ID="id"
+        const val WEATHER_ID="uniqueId"
         const val WEATHER_COORDINATE="coord"
         const val WEATHER_INFO="weather"
         const val WEATHER_CITY="name"

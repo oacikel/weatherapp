@@ -1,7 +1,8 @@
 package com.oacikel.baseapp.viewModel
 
 import android.location.Location
-import androidx.lifecycle.LiveData
+import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.oacikel.baseapp.db.dao.WeatherDao
@@ -15,30 +16,29 @@ import javax.inject.Inject
 class MainViewModel @Inject
 constructor(val weatherRepository: WeatherRepository, val weatherDao: WeatherDao) :
     BaseViewModel() {
-    val weatherLiveData: SingleLiveEvent<WeatherEntity>
-    var savedWeatherList:LiveData<List<WeatherEntity>>
+    val weatherLiveData: MutableLiveData<WeatherEntity>
+    var savedWeatherList: MutableLiveData<List<WeatherEntity>>
+    val LOG_TAG = "OCUL - MainviewModel"
 
     init {
-        this.weatherLiveData = SingleLiveEvent()
-        this.savedWeatherList=MutableLiveData()
+        this.weatherLiveData = MutableLiveData()
+        this.savedWeatherList = MutableLiveData()
     }
 
-    fun getWeatherForCity() {
-        weatherRepository.getWeatherForCity("london", weatherLiveData)
-        weatherRepository.getWeatherForLocation(location.value,weatherLiveData)
+    fun getWeatherForLocation(location: Location) {
+        weatherRepository.getWeatherForLocation(location, weatherLiveData)
     }
-    fun getWeatherForLocation(location:Location){
-        weatherRepository.getWeatherForLocation(location,weatherLiveData)
-    }
-    fun getSavedWeather() {
-        viewModelScope.launch(Dispatchers.IO) {
-            savedWeatherList=weatherRepository.getLocalWeatherList()
+
+    fun getSavedWeather(viewLifecycleOwner: LifecycleOwner) {
+        viewModelScope.launch(Dispatchers.Unconfined) {
+            weatherRepository.getLocalWeatherList().observe(viewLifecycleOwner) {
+                savedWeatherList.postValue(it)
+            }
         }
     }
 
-    fun saveWeather(weatherEntity: WeatherEntity){
-        viewModelScope.launch(Dispatchers.IO){
-            weatherRepository.addWeatherToLocal(weatherEntity)
-        }
+    fun saveWeather(weatherEntity: WeatherEntity) {
+        Log.d(LOG_TAG, "Id is" + weatherEntity.uniqueId)
+        weatherRepository.addWeatherToLocal(weatherEntity)
     }
 }

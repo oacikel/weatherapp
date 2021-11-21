@@ -66,6 +66,7 @@
                 android:layout_marginStart="@dimen/margin_8dp"
                 android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginEnd="@dimen/margin_8dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -88,12 +89,12 @@
                         style="@style/largeTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        app:weatherForTemperature="@{weather}"
-                        app:temperatureType="@{temperatureType}"
                         app:layout_constraintBottom_toBottomOf="@+id/imageViewWeather"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageViewWeather"
-                        app:layout_constraintTop_toTopOf="@+id/imageViewWeather" />
+                        app:layout_constraintTop_toTopOf="@+id/imageViewWeather"
+                        app:temperatureType="@{temperatureType}"
+                        app:weatherForTemperature="@{weather}" />
 
                     <ImageView
                         android:id="@+id/imageViewCalendar"
@@ -130,6 +131,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
+                        android:animateLayoutChanges="true"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -299,6 +301,7 @@
                 android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/buttonLocation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -310,14 +313,14 @@
                 style="@style/mainButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16dp"
-                android:layout_marginEnd="@dimen/margin_16dp"
-                android:layout_marginBottom="@dimen/margin_16dp"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
                 android:text="@string/button_location"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
