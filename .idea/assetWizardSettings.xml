@@ -314,7 +314,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/search/baseline_search_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/location_city/baseline_location_city_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -324,7 +324,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_search" />
+                            <entry key="outputName" value="ic_city" />
                           </map>
                         </option>
                       </PersistentState>

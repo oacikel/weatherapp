@@ -25,8 +25,11 @@
     <string name="main_fragment_pressure_value">%s hPa</string>
     <string name="main_fragment_location">Location:</string>
     <string name="bottom_navigation_history">Saved Weather</string>
+    <string name="bottom_navigation_city">Search Cities</string>
     <string name="bottom_navigation_current_weather">Current Weather</string>
     <string name="fragment_saved_weathers_search_hint">Search Saved Data</string>
     <string name="fragment_saved_weather_empty_list_description">Looks like you don\'t have any weather event saved...</string>
     <string name="fragment_saved_weather_go_back">Go back</string>
+    <string name="fragment_search_city_search_hint">Enter a city name</string>
+    <string name="button_city">How\'s the Weather Up There?</string>
 </resources>

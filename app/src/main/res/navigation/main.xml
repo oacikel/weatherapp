@@ -26,4 +26,8 @@
         android:id="@+id/savedWeatherFragment"
         android:name="com.oacikel.baseapp.ui.SavedWeatherFragment"
         android:label="SavedWeatherFragment" />
+    <fragment
+        android:id="@+id/searchCityFragment"
+        android:name="com.oacikel.baseapp.ui.SearchCityFragment"
+        android:label="SearchCityFragment" />
 </navigation>

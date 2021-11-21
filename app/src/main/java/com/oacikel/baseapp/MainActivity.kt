@@ -93,6 +93,12 @@ class MainActivity : BaseInjectableActivity<MainViewModel, ActivityMainBinding>(
                     Navigation.findNavController(this, R.id.container)
                         .navigate(R.id.savedWeatherFragment)
                 }
+                R.id.cityFragment -> {
+                    Navigation.findNavController(this, R.id.container)
+                        .popBackStack(navGraph.startDestination, true)
+                    Navigation.findNavController(this, R.id.container)
+                        .navigate(R.id.searchCityFragment)
+                }
             }
             true
         }

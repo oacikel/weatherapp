@@ -8,6 +8,7 @@ Introduction
 ### Functionality
 The app has two main fragments: 
     Main screen where user gets current weather data
+    City-Town search screen where user can search a specific place in the world
     Stored Weather screen to view saved weather events
 
 ### Feature List

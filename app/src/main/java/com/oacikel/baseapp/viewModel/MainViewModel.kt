@@ -18,7 +18,6 @@ constructor(val weatherRepository: WeatherRepository, val weatherDao: WeatherDao
     BaseViewModel() {
     val weatherLiveData: MutableLiveData<WeatherEntity>
     var savedWeatherList: MutableLiveData<List<WeatherEntity>>
-    val LOG_TAG = "OCUL - MainviewModel"
 
     init {
         this.weatherLiveData = MutableLiveData()
@@ -30,7 +29,6 @@ constructor(val weatherRepository: WeatherRepository, val weatherDao: WeatherDao
     }
 
     fun saveWeather(weatherEntity: WeatherEntity) {
-        Log.d(LOG_TAG, "Id is" + weatherEntity.uniqueId)
         weatherRepository.addWeatherToLocal(weatherEntity)
     }
 }

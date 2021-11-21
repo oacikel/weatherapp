@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_sun"
         android:title="@string/bottom_navigation_current_weather" />
     <item
+        android:id="@+id/cityFragment"
+        android:icon="@drawable/ic_city"
+        android:title="@string/bottom_navigation_city" />
+    <item
         android:id="@+id/savedWeather"
         android:icon="@drawable/ic_history"
         android:title="@string/bottom_navigation_history" />

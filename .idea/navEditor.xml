@@ -32,6 +32,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="searchCityFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="841" />
+                            <option name="y" value="4175" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                 </map>
               </option>
             </LayoutPositions>

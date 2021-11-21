@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_0">#ED8E73</color>
+    <color name="orange_0">#B7ED8E73</color>
     <color name="orange">#FFEA6E4A</color>
+    <color name="orange_60">#99EA6E4A</color>
     <color name="gray">#48484A</color>
+    <color name="gray_60">#6648484A</color>
     <color name="dark_gray">#29292B</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
