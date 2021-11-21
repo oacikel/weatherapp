@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.oacikel.baseapp.R
 import com.oacikel.baseapp.db.entity.WeatherEntity
+import com.oacikel.baseapp.db.enums.TemperatureUnits
 import com.oacikel.baseapp.db.enums.eWeatherTypes
 import com.oacikel.baseapp.util.getCountryName
 
@@ -50,5 +51,24 @@ object ViewAdapters {
                 view.setImageResource(it.referenceImage)
             }
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter(
+        value = ["weatherForTemperature","temperatureType"])
+    fun setTempUnit(view: TextView, weather: WeatherEntity?,type:TemperatureUnits?) {
+        var degree=weather?.detail?.temperature.toString()
+        when(type){
+            TemperatureUnits.FAHRENHEIT -> {
+                degree+=" °F"
+            }
+            TemperatureUnits.CELSIUS -> {
+                degree+=" ℃"
+            }
+            TemperatureUnits.KELVIN ->{
+                degree+=" K"
+            }
+        }
+        view.text=degree
     }
 }

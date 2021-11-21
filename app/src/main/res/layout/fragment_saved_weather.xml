@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.app.Activity" />
+
+        <variable
+            name="activity"
+            type="com.oacikel.baseapp.MainActivity" />
+
+        <import type="androidx.navigation.Navigation" />
+
+        <import type="com.oacikel.baseapp.R" />
+
+        <variable
+            name="fragment"
+            type="androidx.fragment.app.Fragment" />
+
+        <variable
+            name="viewModel"
+            type="com.oacikel.baseapp.viewModel.SavedWeatherViewModel" />
+
+        <variable
+            name="weather"
+            type="com.oacikel.baseapp.db.entity.WeatherEntity" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadingManager="@{fragment}"
+        app:loadingStatus="@{viewModel}"
+        app:successManager="@{fragment}"
+        app:successStatus="@{viewModel}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSavedWeathers"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

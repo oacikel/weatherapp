@@ -6,6 +6,7 @@ import com.oacikel.baseapp.di.ViewModelKey
 import com.oacikel.baseapp.viewModel.BaseViewModelFactory
 import com.oacikel.baseapp.viewModel.CommonDialogViewModel
 import com.oacikel.baseapp.viewModel.MainViewModel
+import com.oacikel.baseapp.viewModel.SavedWeatherViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -18,6 +19,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SavedWeatherViewModel::class)
+    abstract fun bindSavedWeatherViewModel(savedWeatherViewModel: SavedWeatherViewModel): ViewModel
 
     @Binds
     @IntoMap

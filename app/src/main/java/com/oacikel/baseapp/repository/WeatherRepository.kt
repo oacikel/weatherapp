@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.oacikel.baseapp.api.BaseService
 import com.oacikel.baseapp.db.dao.WeatherDao
 import com.oacikel.baseapp.db.entity.WeatherEntity
-import com.oacikel.baseapp.db.enums.eTemperatureUnits
+import com.oacikel.baseapp.db.enums.TemperatureUnits
 import com.oacikel.baseapp.util.getCurrentDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -27,7 +27,7 @@ class WeatherRepository @Inject constructor(
         cityName: String,
         weatherLiveData: MutableLiveData<WeatherEntity>
     ) {
-        baseService.getWeatherForCity(cityName, eTemperatureUnits.CELSIUS.unit)
+        baseService.getWeatherForCity(cityName, TemperatureUnits.CELSIUS.unit)
             .enqueue(object : Callback<WeatherEntity> {
                 override fun onResponse(
                     call: Call<WeatherEntity>,
@@ -59,7 +59,7 @@ class WeatherRepository @Inject constructor(
         baseService.getWeatherForLocation(
             latitude = location?.latitude.toString(),
             longitude = location?.longitude.toString(),
-            eTemperatureUnits.CELSIUS.unit
+            TemperatureUnits.CELSIUS.unit
         )
             .enqueue(object : Callback<WeatherEntity> {
                 override fun onResponse(

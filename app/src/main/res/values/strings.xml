@@ -22,4 +22,6 @@
     <string name="main_fragment_humidity">Humidity:</string>
     <string name="main_fragment_pressure">Pressure:</string>
     <string name="main_fragment_location">Location:</string>
+    <string name="bottom_navigation_history">Saved Weather</string>
+    <string name="bottom_navigation_current_weather">Current Weather</string>
 </resources>

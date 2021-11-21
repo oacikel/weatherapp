@@ -1,6 +1,5 @@
 package com.oacikel.baseapp.viewModel
 
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,33 +11,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject
+class SavedWeatherViewModel @Inject
 constructor(val weatherRepository: WeatherRepository, val weatherDao: WeatherDao) :
     BaseViewModel() {
-    val weatherLiveData: SingleLiveEvent<WeatherEntity>
     var savedWeatherList:LiveData<List<WeatherEntity>>
 
     init {
-        this.weatherLiveData = SingleLiveEvent()
         this.savedWeatherList=MutableLiveData()
-    }
-
-    fun getWeatherForCity() {
-        weatherRepository.getWeatherForCity("london", weatherLiveData)
-        weatherRepository.getWeatherForLocation(location.value,weatherLiveData)
-    }
-    fun getWeatherForLocation(location:Location){
-        weatherRepository.getWeatherForLocation(location,weatherLiveData)
     }
     fun getSavedWeather() {
         viewModelScope.launch(Dispatchers.IO) {
             savedWeatherList=weatherRepository.getLocalWeatherList()
-        }
-    }
-
-    fun saveWeather(weatherEntity: WeatherEntity){
-        viewModelScope.launch(Dispatchers.IO){
-            weatherRepository.addWeatherToLocal(weatherEntity)
         }
     }
 }

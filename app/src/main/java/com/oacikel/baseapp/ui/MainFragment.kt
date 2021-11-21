@@ -1,13 +1,14 @@
 package com.oacikel.baseapp.ui
 
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import com.oacikel.baseapp.MainActivity
 import com.oacikel.baseapp.R
 import com.oacikel.baseapp.api.Status
@@ -15,17 +16,19 @@ import com.oacikel.baseapp.binding.listAdapters.WeatherAdapter
 import com.oacikel.baseapp.core.BaseInjectableFragment
 import com.oacikel.baseapp.databinding.FragmentMainBinding
 import com.oacikel.baseapp.db.entity.WeatherEntity
+import com.oacikel.baseapp.db.enums.TemperatureUnits
 import com.oacikel.baseapp.di.Injectable
 import com.oacikel.baseapp.ui.callback.ListItemFocusCallback
 import com.oacikel.baseapp.viewModel.MainViewModel
 
 class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(),
-    Injectable,ListItemFocusCallback {
+    Injectable, ListItemFocusCallback {
 
     override val layoutResourceId: Int = R.layout.fragment_main
     override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
     private lateinit var weatherEntity: WeatherEntity
-    private val weatherAdapter by lazy {WeatherAdapter(this)}
+    private val weatherAdapter by lazy { WeatherAdapter(this) }
+    private val LOG_TAG="OCUL - MainFragment"
 
     companion object {
     }
@@ -52,53 +55,71 @@ class MainFragment : BaseInjectableFragment<MainViewModel, FragmentMainBinding>(
         binding.viewModel = viewModel
         binding.activity = (activity as MainActivity)
         binding.fragment = this@MainFragment
-        addAdapterToSavedWeatherList()
+        binding.temperatureType=TemperatureUnits.CELSIUS
+        observeCurrentLocation()
         observeCurrentWeather()
         fetchSavedWeatherList()
-        getWeatherForLocation()
-        binding.buttonLocation.setOnClickListener {
-            getWeatherForLocation()
-        }
+        addAdapterToSavedWeatherList()
+
         binding.buttonSaveWeather.setOnClickListener {
             saveWeatherData(weatherEntity)
         }
+        binding.buttonLocation.setOnClickListener {
+            viewModel.requestLocationUpdates()
+            viewModel.location.value?.let { location -> getWeatherForLocation(location) }
+        }
     }
 
-    fun  addAdapterToSavedWeatherList(){
+    fun observeCurrentLocation(){
+        var isRequested=false
+        viewModel.location.observe(viewLifecycleOwner){location->
+            if (location != null) {
+                Log.d(LOG_TAG,"Location changed: "+location.latitude.toString()+" x "+location.longitude.toString())
+                if(!isRequested){
+                    getWeatherForLocation(location)
+                    binding.buttonLocation.visibility=View.VISIBLE
+                    isRequested=true
+                }
+            }
+        }
+        viewModel.requestLocationUpdates()
+    }
+
+    fun addAdapterToSavedWeatherList() {
         binding.recyclerViewSavedWeathers.apply {
             adapter = weatherAdapter
         }
     }
 
-    fun saveWeatherData(weatherEntity: WeatherEntity){
+    fun saveWeatherData(weatherEntity: WeatherEntity) {
         viewModel.saveWeather(weatherEntity)
     }
 
-    fun getWeatherForLocation() {
+    fun getWeatherForLocation(location: Location) {
         viewModel.status.postValue(Status.LOADING)
-        viewModel.getWeatherForLocation()
+        viewModel.getWeatherForLocation(location)
     }
 
-    fun fetchSavedWeatherList(){
-        viewModel.savedWeatherList.observe(viewLifecycleOwner){
+    fun fetchSavedWeatherList() {
+        viewModel.savedWeatherList.observe(viewLifecycleOwner) {
             weatherAdapter.submitList(it as MutableList<WeatherEntity>)
         }
 
         viewModel.getSavedWeather()
     }
 
-    fun observeCurrentWeather(){
+    fun observeCurrentWeather() {
         viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            if(it!=null){
-                if(it.code!=200){
+            if (it != null) {
+                if (it.code != 200) {
                     viewModel.errorMessage.postValue(it.message)
                     viewModel.status.postValue(Status.ERROR)
-                }else{
+                } else {
                     viewModel.status.postValue(Status.INVISIBLE_SUCCESS)
-                    binding.weather=it
-                    weatherEntity=it
+                    binding.weather = it
+                    weatherEntity = it
                 }
-            }else{
+            } else {
                 viewModel.status.postValue(Status.ERROR)
             }
         }

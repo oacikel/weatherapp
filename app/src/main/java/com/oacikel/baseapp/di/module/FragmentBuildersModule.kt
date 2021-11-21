@@ -1,6 +1,7 @@
 package com.oacikel.baseapp.di.module
 
 import com.oacikel.baseapp.ui.MainFragment
+import com.oacikel.baseapp.ui.SavedWeatherFragment
 import com.oacikel.baseapp.ui.common.ErrorDialogFragment
 import com.oacikel.baseapp.ui.common.LoadingDialogFragment
 import com.oacikel.baseapp.ui.common.SuccessDialogFragment
@@ -12,6 +13,9 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeMainFragment(): MainFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeSavedWeatherFragment(): SavedWeatherFragment
 
     @ContributesAndroidInjector
     internal abstract fun contributeLoadingDialogFragment(): LoadingDialogFragment

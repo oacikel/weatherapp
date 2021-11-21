@@ -1,6 +1,6 @@
 package com.oacikel.baseapp.db.enums
 
-enum class eTemperatureUnits (var unit: String) {
+enum class TemperatureUnits (var unit: String) {
     FAHRENHEIT("imperial"),
     CELSIUS("metric"),
     KELVIN("standard")

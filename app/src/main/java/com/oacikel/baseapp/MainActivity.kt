@@ -73,11 +73,29 @@ class MainActivity : BaseInjectableActivity<MainViewModel, ActivityMainBinding>(
         }
     }
 
-    private fun loadNavigation(){
+    private fun loadNavigation() {
         val graphInflater = Navigation.findNavController(this, R.id.container).navInflater
         val navGraph = graphInflater.inflate(R.navigation.main)
-        val navController = Navigation.findNavController(this, R.id.container)
         Navigation.findNavController(this, R.id.container).setGraph(R.navigation.main)
+        binding.bottomNavigationView.menu.clear()
+        binding.bottomNavigationView.inflateMenu(R.menu.navigation_items)
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.mainFragment -> {
+                    Navigation.findNavController(this, R.id.container)
+                        .popBackStack(navGraph.startDestination, true)
+                    Navigation.findNavController(this, R.id.container)
+                        .navigate(R.id.mainFragment)
+                }
+                R.id.ridesFragment -> {
+                    Navigation.findNavController(this, R.id.container)
+                        .popBackStack(navGraph.startDestination, true)
+                    Navigation.findNavController(this, R.id.container)
+                        .navigate(R.id.savedWeatherFragment)
+                }
+            }
+            true
+        }
     }
 
 }

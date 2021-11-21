@@ -22,4 +22,8 @@
         android:name="com.oacikel.baseapp.ui.MainFragment"
         android:label="MainFragment">
     </fragment>
+    <fragment
+        android:id="@+id/savedWeatherFragment"
+        android:name="com.oacikel.baseapp.ui.SavedWeatherFragment"
+        android:label="SavedWeatherFragment" />
 </navigation>

@@ -1,11 +1,13 @@
 package com.oacikel.baseapp.viewModel
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +19,6 @@ import com.oacikel.baseapp.R
 import com.oacikel.baseapp.api.Status
 import com.oacikel.baseapp.core.BaseActivity
 import com.oacikel.baseapp.db.AppDb
-import com.oacikel.baseapp.db.entity.WeatherEntity
 import com.oacikel.baseapp.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,6 +44,7 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
             R.string.success_popup_default_message
         )
     )
+    private val LOG_TAG = "OCUL - BaseViewModel"
     internal var isConnect = MutableLiveData<Boolean>().default(true)
     internal var isLocationEnable = MutableLiveData<Boolean>().default(false)
     private var networkReceiver: ConnectivityReceiver = ConnectivityReceiver(this)
@@ -77,14 +79,19 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult ?: return
-                for (loc in locationResult.locations){
-                    // Update UI with location data
-                    location.postValue(loc)
+                if (locationResult != null) {
+                    for (loc in locationResult.locations) {
+                        // Update UI with location data
+                        Log.d(LOG_TAG, "Updating location")
+                        location.postValue(loc)
+                    }
+                } else {
+                    Log.e(LOG_TAG, "location is null")
                 }
             }
         }
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(BaseApplication.activity)
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(BaseApplication.activity)
         isLocationEnable.value = BaseApplication.get()!!.locationEnable()
         getLocation()
     }
@@ -114,6 +121,15 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
         }
     }
 
+    @SuppressLint("MissingPermission")
+    fun requestLocationUpdates() {
+        Log.d(LOG_TAG, "Requesting location update.")
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest!!,
+            locationCallback!!,
+            null
+        )
+    }
 
     fun getLocation(): LiveData<Location> {
         if (ActivityCompat.checkSelfPermission(
@@ -131,21 +147,33 @@ open class BaseViewModel : ViewModel(), ConnectivityReceiver.ConnectivityReceive
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+            Log.d(LOG_TAG, "Permissions not granted")
             location.value = null
             return location
         }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest!!,
+            locationCallback!!,
+            null
+        )
         fusedLocationProviderClient.lastLocation
             .addOnSuccessListener { loc: Location? ->
-                if(loc != null){
+                if (loc != null) {
+                    Log.d(LOG_TAG, "Location updating: " + loc.latitude + " x " + loc.longitude)
                     location.postValue(loc)
-                }else{
-                    fusedLocationProviderClient.requestLocationUpdates(locationRequest!!, locationCallback!!, null);
+                } else {
+                    Log.d(LOG_TAG, "Location update requested")
+                    fusedLocationProviderClient.requestLocationUpdates(
+                        locationRequest!!,
+                        locationCallback!!,
+                        null
+                    );
                 }
             }
         return location
     }
 
-    fun stopLocationRequest(){
+    fun stopLocationRequest() {
         fusedLocationProviderClient.removeLocationUpdates(locationCallback!!);
     }
 }

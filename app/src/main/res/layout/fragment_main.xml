@@ -20,6 +20,10 @@
             type="androidx.fragment.app.Fragment" />
 
         <variable
+            name="temperatureType"
+            type="com.oacikel.baseapp.db.enums.TemperatureUnits" />
+
+        <variable
             name="viewModel"
             type="com.oacikel.baseapp.viewModel.MainViewModel" />
 
@@ -84,7 +88,8 @@
                         style="@style/largeTextStyle"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:text="@{weather.detail.temperature.toString()}"
+                        app:weatherForTemperature="@{weather}"
+                        app:temperatureType="@{temperatureType}"
                         app:layout_constraintBottom_toBottomOf="@+id/imageViewWeather"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageViewWeather"
@@ -311,7 +316,8 @@
                 android:text="@string/button_location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
