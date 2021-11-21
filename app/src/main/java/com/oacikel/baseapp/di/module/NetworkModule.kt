@@ -42,23 +42,6 @@ class NetworkModule {
             .build()
     }
 */
-    @Singleton
-    @Provides
-    fun provideAuthantiacate(
-        apiServiceHolder: ApiServiceHolder,
-        appDatabase: AppDb,
-        appSettingsDataStore: DataStore<AppSettings>,
-        sUserDataStore: DataStore<StaticUser>,
-        userDataStore: DataStore<User>
-    ): BaseAuth {
-        return BaseAuth(
-            apiServiceHolder,
-            appDatabase,
-            appSettingsDataStore,
-            sUserDataStore,
-            userDataStore
-        )
-    }
 
     @Provides
     @Singleton
@@ -108,7 +91,6 @@ class NetworkModule {
         myFordInterceptor: BaseInterceptor,
         cache: Cache,
         //certificatePinner: CertificatePinner,
-        auth: BaseAuth
     ): OkHttpClient {
 
 
@@ -127,7 +109,6 @@ class NetworkModule {
             .addInterceptor(myFordInterceptor)
             .addInterceptor(interceptor)
             .addNetworkInterceptor(ChuckInterceptor(BaseApplication.sContext))
-            .authenticator(auth)
             .connectTimeout(TIMEOUT_SESSION, TimeUnit.HOURS)
             .writeTimeout(TIMEOUT_SESSION, TimeUnit.HOURS)
             .readTimeout(TIMEOUT_SESSION, TimeUnit.HOURS)

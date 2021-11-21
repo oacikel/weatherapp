@@ -30,12 +30,14 @@
             android:layout_height="@dimen/margin_96dp"
             android:layout_marginTop="@dimen/margin_16dp"
             android:padding="@dimen/margin_8dp"
+            app:arch_color="@color/orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewTitle"
+            style="@style/subTitleTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_32dp"

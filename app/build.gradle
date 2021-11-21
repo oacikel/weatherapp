@@ -24,36 +24,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
-/*
-    signingConfigs {
-        release {
-            storePassword "dud"
-            keyAlias "dud"
-            keyPassword "dud"
-            storeFile file('signing/keystore.jks')
-        }
 
-        debug {
-            storePassword "dud"
-            keyAlias "dud"
-            keyPassword "dud"
-            storeFile file('signing/keystore.jks')
-        }
-
-        pre_release {
-            storePassword "dud"
-            keyAlias "dud"
-            keyPassword "dud"
-            storeFile file('signing/keystore.jks')
-        }
-    }
- */
    buildTypes {
 
         debug {
-            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
-            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
-            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
             buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
             buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
 
@@ -65,9 +39,6 @@ android {
             applicationIdSuffix ".dev"
         }
         release {
-            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
-            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
-            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
             buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
             buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
 
@@ -82,9 +53,6 @@ android {
         }
 
         pre_release {
-            buildConfigField 'String', 'BASE_USERNAME', BASE_USERNAME
-            buildConfigField 'String', 'BASE_PASSWORD', BASE_PASSWORD
-            buildConfigField 'String', 'BASE_SECRET_KEY', BASE_SECRET_KEY
             buildConfigField 'String', 'BASE_URL', OPEN_WEATHER_BASE_URL
             buildConfigField 'String', 'OPEN_WEATHER_API', OPEN_WEATHER_API_KEY
 

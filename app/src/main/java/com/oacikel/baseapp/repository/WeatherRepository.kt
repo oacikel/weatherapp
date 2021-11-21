@@ -82,7 +82,6 @@ class WeatherRepository @Inject constructor(
     }
 
     fun addWeatherToLocal(weatherEntity: WeatherEntity) {
-        Log.d("OCUL", "Dao size: " + weatherDao.savedWeatherList.value?.size)
         GlobalScope.launch(Dispatchers.IO) { weatherDao.insertWeather(weatherEntity) }
     }
 
@@ -91,6 +90,9 @@ class WeatherRepository @Inject constructor(
     }
 
     fun searchFor(string: String): LiveData<List<WeatherEntity>> {
+        if(weatherDao.searchWeatherList(string).value?.size==0){
+            return weatherDao.savedWeatherList
+        }
         return weatherDao.searchWeatherList(string)
     }
 
