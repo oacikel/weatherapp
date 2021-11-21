@@ -24,7 +24,7 @@ about weather data returned from API)
 ● All CRUD operations
 ● Use Kotlin instead of Java for MainActivity
 
-note 1:In order to stop having Network request limitation issues, continuous request feature has been commented out. 
+note 1:In order to stop having Network request limitation issues, refresh feature has been commented out. 
 Please call viewModel.requestLocationUpdates() if you want to utilize this feature.
 
 note 2:Normally API keys are stored within the global properties file for security reasons.
