@@ -17,13 +17,10 @@ The app has two main fragments:
 ● Best UI practices (Material design)
 ● Local data storage
 ● UI layout optimized for both Phone and Tablets screens
-● Implement ‘More details’ feature (with ability to view more detailed information
-about weather data returned from API)
 ● Fetching and processing weather data for more locations
 ● Refresh the weather data periodically
 ● Custom animations, transitions between screens
 ● All CRUD operations
-● Use Kotlin instead of Java for MainActivity
 
 note 1:In order to stop having Network request limitation issues, refresh feature has been commented out. 
 Please call viewModel.requestLocationUpdates() if you want to utilize this feature.
